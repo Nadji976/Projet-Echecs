@@ -1,3 +1,14 @@
+import http.server
+import urllib.parse
+
+FORMULAIRE = '''<form target="/" method="get">
+    <input type="text" name="ld"/>
+    <input type="text" name="cd"/>
+    <input type="text" name="la"/>
+    <input type="text" name="ca"/>
+    <input type="submit" />
+    </form>'''
+
 echiquier = []  # contient les colonnes
 for i in range(8):
     echiquier.append(8*['*'])
@@ -50,20 +61,43 @@ echiquier = modif_echiquier(echiquier, 'H', '7', 'P8')
 echiquier = modif_echiquier(echiquier, 'G', '7', 'P7')
 echiquier = modif_echiquier(echiquier, 'F', '7', 'P6')
 
-def afficher(echiquier):
-    for x in range(8):
-        print(echiquier[x])
+def to_html(echiquier):
+    html = '''<TABLE BORDER="9">
+  <CAPTION> Echiquier </CAPTION>'''
+    for i in range(8):
+        html = html + "<TR>\n"
+        for j in range(8):
+            piece = echiquier[i][j]
+            html = html + "<TD>" + piece + "</TD>\n"
+        html = html + "</TR>\n"
+    html = html + '''<TH> 
+    </TR> 
+</TABLE>  '''
+    return html
+
+def deplacer(echiquier, pos_l, pos_c, pos2_l, pos2_c):
+    coord_l, coor_c = pos_vers_coord(pos_l, pos_c)
+    piece = echiquier[coord_l][coor_c]  
+    modif_echiquier(echiquier, pos2_l, pos2_c, piece)
+    modif_echiquier(echiquier, pos_l, pos_c, '*')
+
+class TestHandler(http.server.BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.send_header("Content-type", "text/html")
+        self.end_headers()
+        # Écriture du contenu de la réponse.
+
+        html = FORMULAIRE
+
+        if '?' in self.path:
+            path, query_string = self.path.split('?', 1)
+            params = urllib.parse.parse_qs(query_string)
+            deplacer(echiquier ,params['ld'][0], params['cd'][0], params['la'][0],params['ca'][0])            
+        html = html + to_html(echiquier)
     
-def deplacer(echiquier, pos1_l, pos1_c, pos2_l, pos2_c):
-    pass
+        self.wfile.write(bytes(html, 'UTF-8'))
 
-
-afficher(echiquier) 
-
-deplacer(echiquier, '7', 'A', '5', 'A')
-
-print() 
-
-
-afficher(echiquier)
-    
+s = http.server.HTTPServer(("localhost", 8000), TestHandler)
+print("Starting server. Ctrl+C to quit.")
+s.serve_forever()
