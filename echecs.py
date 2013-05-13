@@ -14,6 +14,10 @@ def modif_echiquier(echiquier, pos_l, pos_c, piece):
     echiquier[coord_l][coor_c] = piece
     return echiquier
 
+
+    
+
+
 echiquier = modif_echiquier(echiquier, 'E', '1', 'k')
 echiquier = modif_echiquier(echiquier, 'D', '1', 'q')
 echiquier = modif_echiquier(echiquier, 'A', '1', 't1')
@@ -31,7 +35,6 @@ echiquier = modif_echiquier(echiquier, 'C', '2', 'p3')
 echiquier = modif_echiquier(echiquier, 'H', '2', 'p8')
 echiquier = modif_echiquier(echiquier, 'G', '2', 'p7')
 echiquier = modif_echiquier(echiquier, 'F', '2', 'p6')
-
 
 echiquier = modif_echiquier(echiquier, 'E', '8', 'Q')
 echiquier = modif_echiquier(echiquier, 'D', '8', 'K')
@@ -52,22 +55,21 @@ echiquier = modif_echiquier(echiquier, 'G', '7', 'P7')
 echiquier = modif_echiquier(echiquier, 'F', '7', 'P6')
 
 
-                 
-<TABLE BORDER="9"> 
-  <CAPTION> Echec </CAPTION> 
-  <TR> 
- <TH> Titre A1 </TH> 
- <TH> Titre A2 </TH> 
- <TH> Titre A3 </TH> 
- <TH> Titre A4 </TH> 
-  </TR> 
-  <TR> 
- <TH> Titre B1 </TH> 
- <TD> Valeur B2 </TD> 
- <TD> Valeur B3 </TD> 
- <TD> Valeur B4 </TD> 
-  </TR> 
-</TABLE> 
-                 
-for x in range(8):
-    print(echiquier[x])
+def afficher(echiquier):
+    for x in range(8):
+        print(echiquier[x])
+    
+def deplacer(echiquier, pos_l, pos_c, pos2_l, pos2_c):
+    coord_l, coor_c = pos_vers_coord(pos_l, pos_c)
+    piece = echiquier[coord_l][coor_c]  
+    modif_echiquier(echiquier, pos2_l, pos2_c, piece)
+    modif_echiquier(echiquier, pos_l, pos_c, '*')
+
+afficher(echiquier) 
+
+deplacer(echiquier, 'A', '7', 'A', '5')
+
+print() 
+
+
+afficher(echiquier)
