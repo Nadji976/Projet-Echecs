@@ -9,6 +9,7 @@ def pos_vers_coord(c, l):
     return (7-"12345678".index(l),"ABCDEFGH".index(c))
 
 def modif_echiquier(echiquier, pos_l, pos_c, piece):
+    # attribuer à chaque pièce une position sur le tableau
     coord_l, coor_c = pos_vers_coord(pos_l, pos_c)
     echiquier[coord_l][coor_c] = piece
     return echiquier
