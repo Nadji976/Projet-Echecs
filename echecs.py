@@ -6,7 +6,7 @@ for i in range(8):
 def pos_vers_coord(c, l):
     # E -> 4 et 1 -> 7
     
-    return (7-"12345678".index (l),"ABCDEFGH".index (c))
+    return (7-"12345678".index(l),"ABCDEFGH".index(c))
 
 def modif_echiquier(echiquier, pos_l, pos_c, piece):
     coord_l, coor_c = pos_vers_coord(pos_l, pos_c)
