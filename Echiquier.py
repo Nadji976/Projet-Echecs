@@ -10,7 +10,7 @@ ENTETE = '''<!DOCTYPE html>
     </head>
     <body>'''
 PIED = '''</body></html>'''
-FORMULAIRE = '''<form target="/" method="get">
+FORMULAIRE = '''<form action="/" method="get">
     <input type="text" name="ld"/>
     <input type="text" name="cd"/>
     <input type="text" name="la"/>
@@ -18,9 +18,15 @@ FORMULAIRE = '''<form target="/" method="get">
     <input type="submit" />
     </form>'''
 
-echiquier = []  # contient les colonnes
-for i in range(8):
-    echiquier.append(8*['*'])
+echiquier = None  # variable globale contenant l’échiquier
+
+def init_echiquier():
+    global echiquier
+    echiquier = []  # contient les colonnes
+    for i in range(8):
+        echiquier.append(8*['*'])
+
+init_echiquier()
 
 def pos_vers_coord(c, l):
     # E -> 4 et 1 -> 7
@@ -29,44 +35,43 @@ def pos_vers_coord(c, l):
 def modif_echiquier(echiquier, pos_l, pos_c, piece):
     coord_l, coor_c = pos_vers_coord(pos_l, pos_c)
     echiquier[coord_l][coor_c] = piece
-    return echiquier
 
-echiquier = modif_echiquier(echiquier, 'E', '1', 'k')
-echiquier = modif_echiquier(echiquier, 'D', '1', 'q')
-echiquier = modif_echiquier(echiquier, 'A', '1', 't1')
-echiquier = modif_echiquier(echiquier, 'B', '1', 'h1')
-echiquier = modif_echiquier(echiquier, 'C', '1', 'c1')
-echiquier = modif_echiquier(echiquier, 'H', '1', 't2')
-echiquier = modif_echiquier(echiquier, 'G', '1', 'h2')
-echiquier = modif_echiquier(echiquier, 'F', '1', 'c2')
+modif_echiquier(echiquier, 'E', '1', 'k')
+modif_echiquier(echiquier, 'D', '1', 'q')
+modif_echiquier(echiquier, 'A', '1', 't1')
+modif_echiquier(echiquier, 'B', '1', 'h1')
+modif_echiquier(echiquier, 'C', '1', 'c1')
+modif_echiquier(echiquier, 'H', '1', 't2')
+modif_echiquier(echiquier, 'G', '1', 'h2')
+modif_echiquier(echiquier, 'F', '1', 'c2')
 
-echiquier = modif_echiquier(echiquier, 'E', '2', 'p5')
-echiquier = modif_echiquier(echiquier, 'D', '2', 'p4')
-echiquier = modif_echiquier(echiquier, 'A', '2', 'p1')
-echiquier = modif_echiquier(echiquier, 'B', '2', 'p2')
-echiquier = modif_echiquier(echiquier, 'C', '2', 'p3')
-echiquier = modif_echiquier(echiquier, 'H', '2', 'p8')
-echiquier = modif_echiquier(echiquier, 'G', '2', 'p7')
-echiquier = modif_echiquier(echiquier, 'F', '2', 'p6')
+modif_echiquier(echiquier, 'E', '2', 'p5')
+modif_echiquier(echiquier, 'D', '2', 'p4')
+modif_echiquier(echiquier, 'A', '2', 'p1')
+modif_echiquier(echiquier, 'B', '2', 'p2')
+modif_echiquier(echiquier, 'C', '2', 'p3')
+modif_echiquier(echiquier, 'H', '2', 'p8')
+modif_echiquier(echiquier, 'G', '2', 'p7')
+modif_echiquier(echiquier, 'F', '2', 'p6')
 
 
-echiquier = modif_echiquier(echiquier, 'E', '8', 'Q')
-echiquier = modif_echiquier(echiquier, 'D', '8', 'K')
-echiquier = modif_echiquier(echiquier, 'A', '8', 'T1')
-echiquier = modif_echiquier(echiquier, 'B', '8', 'H1')
-echiquier = modif_echiquier(echiquier, 'C', '8', 'C1')
-echiquier = modif_echiquier(echiquier, 'H', '8', 'T2')
-echiquier = modif_echiquier(echiquier, 'G', '8', 'H2')
-echiquier = modif_echiquier(echiquier, 'F', '8', 'C2')
+modif_echiquier(echiquier, 'E', '8', 'Q')
+modif_echiquier(echiquier, 'D', '8', 'K')
+modif_echiquier(echiquier, 'A', '8', 'T1')
+modif_echiquier(echiquier, 'B', '8', 'H1')
+modif_echiquier(echiquier, 'C', '8', 'C1')
+modif_echiquier(echiquier, 'H', '8', 'T2')
+modif_echiquier(echiquier, 'G', '8', 'H2')
+modif_echiquier(echiquier, 'F', '8', 'C2')
 
-echiquier = modif_echiquier(echiquier, 'E', '7', 'P5')
-echiquier = modif_echiquier(echiquier, 'D', '7', 'P4')
-echiquier = modif_echiquier(echiquier, 'A', '7', 'P1')
-echiquier = modif_echiquier(echiquier, 'B', '7', 'P2')
-echiquier = modif_echiquier(echiquier, 'C', '7', 'P3')
-echiquier = modif_echiquier(echiquier, 'H', '7', 'P8')
-echiquier = modif_echiquier(echiquier, 'G', '7', 'P7')
-echiquier = modif_echiquier(echiquier, 'F', '7', 'P6')
+modif_echiquier(echiquier, 'E', '7', 'P5')
+modif_echiquier(echiquier, 'D', '7', 'P4')
+modif_echiquier(echiquier, 'A', '7', 'P1')
+modif_echiquier(echiquier, 'B', '7', 'P2')
+modif_echiquier(echiquier, 'C', '7', 'P3')
+modif_echiquier(echiquier, 'H', '7', 'P8')
+modif_echiquier(echiquier, 'G', '7', 'P7')
+modif_echiquier(echiquier, 'F', '7', 'P6')
 
 def to_html(echiquier):
     html = '''<TABLE BORDER="9">
@@ -84,9 +89,8 @@ def to_html(echiquier):
 def deplacer(echiquier, pos_l, pos_c, pos2_l, pos2_c):
     coord_l, coor_c = pos_vers_coord(pos_l, pos_c)
     piece = echiquier[coord_l][coor_c]  
-    echiquier = modif_echiquier(echiquier, pos2_l, pos2_c, piece)
-    echiquier = modif_echiquier(echiquier, pos_l, pos_c, '*')
-    return echiquier
+    modif_echiquier(echiquier, pos2_l, pos2_c, piece)
+    modif_echiquier(echiquier, pos_l, pos_c, '*')
 
 class TestHandler(http.server.BaseHTTPRequestHandler):
     def do_GET(self):
@@ -102,14 +106,15 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header("Content-type", "text/html")
             self.end_headers()
+            if self.path == '/raz':
+                init_echiquier()
             # Écriture du contenu de la réponse.
-            echiquier = echiquier
             html = ENTETE
             html = html + FORMULAIRE
             if '?' in self.path:
                 path, query_string = self.path.split('?', 1)
                 params = urllib.parse.parse_qs(query_string)
-                echiquier = deplacer(echiquier ,params['ld'][0], params['cd'][0], params['la'][0],params['ca'][0])
+                deplacer(echiquier ,params['ld'][0], params['cd'][0], params['la'][0],params['ca'][0])
             html = html + to_html(echiquier)
             html = html + '<a href="raz">Réinitialiser</a>'
             self.wfile.write(bytes(html, 'UTF-8'))
