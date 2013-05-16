@@ -77,8 +77,9 @@ def to_html(echiquier):
 def deplacer(echiquier, pos_l, pos_c, pos2_l, pos2_c):
     coord_l, coor_c = pos_vers_coord(pos_l, pos_c)
     piece = echiquier[coord_l][coor_c]  
-    modif_echiquier(echiquier, pos2_l, pos2_c, piece)
-    modif_echiquier(echiquier, pos_l, pos_c, '*')
+    echiquier = modif_echiquier(echiquier, pos2_l, pos2_c, piece)
+    echiquier = modif_echiquier(echiquier, pos_l, pos_c, '*')
+    return echiquier
 
 class TestHandler(http.server.BaseHTTPRequestHandler):
     def do_GET(self):
