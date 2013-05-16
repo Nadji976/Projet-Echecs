@@ -13,10 +13,8 @@ echiquier = []  # contient les colonnes
 for i in range(8):
     echiquier.append(8*['*'])
 
-
 def pos_vers_coord(c, l):
     # E -> 4 et 1 -> 7
-    
     return (7-"12345678".index (l),"ABCDEFGH".index (c))
 
 def modif_echiquier(echiquier, pos_l, pos_c, piece):
