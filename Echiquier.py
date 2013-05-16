@@ -70,8 +70,7 @@ def to_html(echiquier):
             piece = echiquier[i][j]
             html = html + "<TD>" + piece + "</TD>\n"
         html = html + "</TR>\n"
-    html = html + '''<TH> 
-    </TR> 
+    html = html + '''
 </TABLE>  '''
     return html
 
