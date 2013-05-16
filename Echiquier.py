@@ -1,6 +1,15 @@
 import http.server
 import urllib.parse
 
+ENTETE = '''<!DOCTYPE html>
+<html>
+    <head>
+        <title>Où apparaît ce titre ?</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" type="text/css" href="style.css" />
+    </head>
+    <body>'''
+PIED = '''</body></html>'''
 FORMULAIRE = '''<form target="/" method="get">
     <input type="text" name="ld"/>
     <input type="text" name="cd"/>
@@ -81,20 +90,29 @@ def deplacer(echiquier, pos_l, pos_c, pos2_l, pos2_c):
 
 class TestHandler(http.server.BaseHTTPRequestHandler):
     def do_GET(self):
-        self.send_response(200)
-        self.send_header("Content-type", "text/html")
-        self.end_headers()
-        # Écriture du contenu de la réponse.
-
-        html = FORMULAIRE
-
-        if '?' in self.path:
-            path, query_string = self.path.split('?', 1)
-            params = urllib.parse.parse_qs(query_string)
-            deplacer(echiquier ,params['ld'][0], params['cd'][0], params['la'][0],params['ca'][0])            
-        html = html + to_html(echiquier)
-        html = html + '<a href="raz">Réinitialiser</a>'
-        self.wfile.write(bytes(html, 'UTF-8'))
+        
+        if self.path == '/style.css':
+            self.send_response(200)
+            self.send_header("Content-type", "text/css")
+            self.end_headers()
+            file = open("style.css", "r")
+            style = file.read()
+            self.wfile.write(bytes(style, 'UTF-8'))
+        else:
+            self.send_response(200)
+            self.send_header("Content-type", "text/html")
+            self.end_headers()
+            # Écriture du contenu de la réponse.
+            echiquier = echiquier
+            html = ENTETE
+            html = html + FORMULAIRE
+            if '?' in self.path:
+                path, query_string = self.path.split('?', 1)
+                params = urllib.parse.parse_qs(query_string)
+                echiquier = deplacer(echiquier ,params['ld'][0], params['cd'][0], params['la'][0],params['ca'][0])
+            html = html + to_html(echiquier)
+            html = html + '<a href="raz">Réinitialiser</a>'
+            self.wfile.write(bytes(html, 'UTF-8'))
 
 s = http.server.HTTPServer(("localhost", 8000), TestHandler)
 print("Starting server. Ctrl+C to quit.")
