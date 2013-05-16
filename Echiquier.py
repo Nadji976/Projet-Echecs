@@ -10,7 +10,7 @@ ENTETE = '''<!DOCTYPE html>
     </head>
     <body>'''
 PIED = '''</body></html>'''
-FORMULAIRE = '''<form target="/" method="get">
+FORMULAIRE = '''<form action="/" method="get">
     <input type="text" name="ld"/>
     <input type="text" name="cd"/>
     <input type="text" name="la"/>
