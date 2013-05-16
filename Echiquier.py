@@ -18,9 +18,15 @@ FORMULAIRE = '''<form action="/" method="get">
     <input type="submit" />
     </form>'''
 
-echiquier = []  # contient les colonnes
-for i in range(8):
-    echiquier.append(8*['*'])
+echiquier = None  # variable globale contenant l’échiquier
+
+def init_echiquier():
+    global echiquier
+    echiquier = []  # contient les colonnes
+    for i in range(8):
+        echiquier.append(8*['*'])
+
+init_echiquier()
 
 def pos_vers_coord(c, l):
     # E -> 4 et 1 -> 7
@@ -100,6 +106,8 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header("Content-type", "text/html")
             self.end_headers()
+            if self.path == '/raz':
+                init_echiquier()
             # Écriture du contenu de la réponse.
             html = ENTETE
             html = html + FORMULAIRE
