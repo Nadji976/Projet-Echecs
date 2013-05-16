@@ -95,7 +95,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
             params = urllib.parse.parse_qs(query_string)
             deplacer(echiquier ,params['ld'][0], params['cd'][0], params['la'][0],params['ca'][0])            
         html = html + to_html(echiquier)
-    
+        html = html + '<a href="raz">Réinitialiser</a>'
         self.wfile.write(bytes(html, 'UTF-8'))
 
 s = http.server.HTTPServer(("localhost", 8000), TestHandler)
