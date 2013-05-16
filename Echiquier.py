@@ -103,13 +103,12 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
             self.send_header("Content-type", "text/html")
             self.end_headers()
             # Écriture du contenu de la réponse.
-            echiquier = echiquier
             html = ENTETE
             html = html + FORMULAIRE
             if '?' in self.path:
                 path, query_string = self.path.split('?', 1)
                 params = urllib.parse.parse_qs(query_string)
-                echiquier = deplacer(echiquier ,params['ld'][0], params['cd'][0], params['la'][0],params['ca'][0])
+                deplacer(echiquier ,params['ld'][0], params['cd'][0], params['la'][0],params['ca'][0])
             html = html + to_html(echiquier)
             html = html + '<a href="raz">Réinitialiser</a>'
             self.wfile.write(bytes(html, 'UTF-8'))
