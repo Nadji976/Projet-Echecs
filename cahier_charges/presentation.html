@@ -17,21 +17,103 @@
 
 
 
-Cahier des Charges : Jeu d'echec
+Cahier des Charges : Projet echecs
 =======================
-<img src="http://img.over-blog.com/450x300/3/84/16/38/associations-culturelles/ludotheque-nay/echecs-212.jpg" alt="some_text"> 
------------------------------------------------------
-Principe du jeu: il faut mettre le roi en echec et mat , c'est à dire empécher le roi de effectuer un mouvement.
+<img src="http://img.over-blog.com/450x300/3/84/16/38/associations-culturelles/ludotheque-nay/echecs-212.jpg" alt="some_text">
+ 
+ 
+Equipe: GERARD Antoine ; CHEBANI Nadjimi
+ -----------------------------------------------------
 
- ce jeu sera disponible en ligne sur page html
-
------------------------------------------------------
-
-Monde de jeu: ce jeu se jouera en mutlijouer. le joueur 1 devra un faire cout , 
-son cout sera envoyé au joueur 2 comme un message contenant le cout.
-Pour que la partie puis continuer le joueur 2 devra jouer a son tour.
+Projet: 
+ 
+ Notre projet consiste à créer un jeu d'échecs sous Python puis de l'inclure dans une page HTML pour pouvoir y jouer en on ligne.
+ L'idée est que les joueurs souhaitent faire une partie , ils n'auront pas a se connecter au site mais à chaque fois qu'un joueur déplacerait une pièce , il reverrait la page mise à jour à son adversaire .
+ Un peu comme si deux personnes au lieu de tchatter directement, s'envoyaient des mails. la partie ne serait donc pas jouée en direct.
+ Ce processus et dit asynchrone. 
+ 
+--------------------------------------------------
+ 
+ Le travail est divisé en deux :
+Une partie programmation sous Python pour créer le jeu en lui-même.
+Une partie programmation HTML pour créer la page web sur laquelle qui servira de support de diffusion du jeu.
+Nous utiliserons donc Python, Notepad ++ et Github pour réaliser notre projet.
 
 --------------------------------------------------
+
+Python : nous réutiliserons ce que nous avons appris en créant le jeu « le compas dans l'oeil » (qui avait été fait sous Processing) pour coder le jeu.
+Notepad ++ : création d'une page HTML pour diffuser le jeu et pour le mettre en forme (échiquier, aspect des pièces,...).
+Github : support pour suivre l'avancé du projet et pour partager le travail accompli pour mieux le réunir à la fin.
+
+--------------------------------------------------
+
+<TABLE BORDER="1"> 
+  <CAPTION> Tableau des repartions des tâches </CAPTION> 
+  <TR> 
+ <TH> Planing </TH> 
+ <TH> GERARD Antoine </TH> 
+ <TH> CHEBANI Nadjimi </TH> 
+   </TR> 
+ <TR> 
+ <TH> Semaine 1 </TH> 
+ <TH> Définir notre projet. </TH> 
+ <TH> Définir notre projet. </TH> 
+   </TR> 
+  <TR> 
+ <TH> Semaine 2 </TH> 
+ <TD> Ecrire le cahier des charges 
+ + chercher des informations utiles pour notre projet sur le web. </TD> 
+ <TD> Ecrire le cahier des charges
+ + chercher des informations utiles pour notre projet sur le web. </TD> 
+  </TR> 
+  <TR> 
+ <TH> Semaine 3 </TH> 
+ <TD> Codage sur Python : 
+ création de l'échiquier avec la position des différentes pièces du jeu</TD> 
+ <TD>Cahier des charges sur Quickslyde + Codage sur Notepad++ :
+ création du tableau pour mettre en forme l'échiquier sur une page html. </TD> 
+  </TR> 
+  <TR> 
+ <TH> Semaine 4 </TH> 
+ <TD> Codage sur Python : création de la fonction "déplacer".  </TD> 
+ <TD> Codage sur Notepad :
+ création de lien pour réinitialiser la partie et pour aller sur une page d'instruction. </TD> 
+  </TR> 
+  <TR> 
+ <TH> Semaine 5 </TH> 
+ <TD> Codage sur Python : création d'un formulaire pour pouvoir dire quelles pièce doit bouger. </TD> 
+ <TD> Travail sur CSS : travail sur la stylisation de l'échiquier. </TD> 
+  </TR> 
+  <TR> 
+ <TH> Semaine 6 </TH> 
+ <TD> Mise en commun + Perfectionnement + ajout d'une page html contenant les instructions.</TD> 
+ <TD> Mise en commun + Perfectionnement + ajout d'une page html contenant les instructions. </TD> 
+  </TR> 
+  <TR> 
+ <TH> Semaine 7 </TH> 
+ <TD> Rédaction des projets papiers et des diapo. </TD> 
+ <TD> Rédaction des projets papiers et des diapo. </TD> 
+  </TR> 
+ </TABLE>
+
+--------------------------------------------------
+   
+    <TABLE BORDER="1"> 
+      <CAPTION> Echec </CAPTION> 
+      <TR> 
+     <TH> Titre A1 </TH> 
+     <TH> Titre A2 </TH> 
+     <TH> Titre A3 </TH> 
+     <TH> Titre A4 </TH> 
+       </TR> 
+      <TR> 
+     <TH> Titre B1 </TH> 
+     <TD> Valeur B2 </TD> 
+     <TD> Valeur B3 </TD> 
+     <TD> Valeur B4 </TD>
+      </TR> 
+    </TABLE>
+
 <TABLE BORDER="1"> 
   <CAPTION> Echec </CAPTION> 
   <TR> 
@@ -44,9 +126,11 @@ Pour que la partie puis continuer le joueur 2 devra jouer a son tour.
  <TH> Titre B1 </TH> 
  <TD> Valeur B2 </TD> 
  <TD> Valeur B3 </TD> 
- <TD> Valeur B4 </
+ <TD> Valeur B4 </TD>
   </TR> 
-</TABLE> 
+</TABLE>
+
+
 --------------------------------------------------
 Sur le site Html il aura une page accueil et un lien "" nouvelle partie"" , 
 il faudra cliquer sur ce lien pour pouvoir jouer.
