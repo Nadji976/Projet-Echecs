@@ -3,20 +3,33 @@ import urllib.parse
 
 ENTETE = '''<!DOCTYPE html>
 <html>
-    <head>
-        <title>Où apparaît ce titre ?</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <link rel="stylesheet" type="text/css" href="style.css" />
-    </head>
-    <body>'''
+<head>
+<title>Où apparaît ce titre ?</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+<body>'''
 PIED = '''</body></html>'''
-FORMULAIRE = '''<form action="/" method="get">
-    <input type="text" name="ld"/>
-    <input type="text" name="cd"/>
-    <input type="text" name="la"/>
-    <input type="text" name="ca"/>
-    <input type="submit" />
-    </form>'''
+FORMULAIRE = '''
+<form action="/" method="get">
+<TABLE BORDER="9">
+<CAPTION> Echiquier </CAPTION>
+<TR>
+<TD><input type="text" name="ld"/></TD>
+<TD><input type="text" name="cd"/></TD>
+<TD><input type="text" name="la"</TD>
+<TD><input type="text" name="ca"/></TD>
+</TR>
+<TR>
+<TD>Ligne de depart</TD>
+<TD>Colonne de depart</TD>
+<TD>Ligne d'arrivé</TD>
+<TD>Colonne d'arrivé</TD>
+</TR>
+
+</TABLE>
+<input style="float:right" type="submit" />
+</form>'''
 
 
 def pos_vers_coord(c, l):
@@ -29,15 +42,15 @@ def modif_echiquier(echiquier, pos_l, pos_c, piece):
     
 def deplacer(echiquier, pos_l, pos_c, pos2_l, pos2_c):
     coord_l, coor_c = pos_vers_coord(pos_l, pos_c)
-    piece = echiquier[coord_l][coor_c]  
+    piece = echiquier[coord_l][coor_c]
     modif_echiquier(echiquier, pos2_l, pos2_c, piece)
     modif_echiquier(echiquier, pos_l, pos_c, '*')
 
-echiquier = None  # variable globale contenant l’échiquier
+echiquier = None # variable globale contenant l’échiquier
 
 def init_echiquier():
     global echiquier
-    echiquier = []  # contient les colonnes
+    echiquier = [] # contient les colonnes
     for i in range(8):
         echiquier.append(8*['*'])
     modif_echiquier(echiquier, 'E', '1', 'k')
@@ -57,7 +70,8 @@ def init_echiquier():
     modif_echiquier(echiquier, 'H', '2', 'p8')
     modif_echiquier(echiquier, 'G', '2', 'p7')
     modif_echiquier(echiquier, 'F', '2', 'p6')
-    
+
+       
     modif_echiquier(echiquier, 'E', '8', 'Q')
     modif_echiquier(echiquier, 'D', '8', 'K')
     modif_echiquier(echiquier, 'A', '8', 'T1')
@@ -74,13 +88,13 @@ def init_echiquier():
     modif_echiquier(echiquier, 'C', '7', 'P3')
     modif_echiquier(echiquier, 'H', '7', 'P8')
     modif_echiquier(echiquier, 'G', '7', 'P7')
-    modif_echiquier(echiquier, 'F', '7', 'P6')        
+    modif_echiquier(echiquier, 'F', '7', 'P6')
 
 init_echiquier()
 
 def to_html(echiquier):
     html = '''<TABLE BORDER="9">
-  <CAPTION> Echiquier </CAPTION>'''
+<CAPTION> Echiquier </CAPTION>'''
     for i in range(8):
         html = html + "<TR>\n"
         for j in range(8):
@@ -88,11 +102,13 @@ def to_html(echiquier):
             html = html + "<TD>" + piece + "</TD>\n"
         html = html + "</TR>\n"
     html = html + '''
-</TABLE>  '''
+    
+    
+</TABLE> '''
     return html
 
 class TestHandler(http.server.BaseHTTPRequestHandler):
-    def do_GET(self):    
+    def do_GET(self):
         if self.path == '/style.css':
             self.send_response(200)
             self.send_header("Content-type", "text/css")
@@ -124,8 +140,8 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                 params = urllib.parse.parse_qs(query_string)
                 deplacer(echiquier ,params['ld'][0], params['cd'][0], params['la'][0],params['ca'][0])
             html = html + to_html(echiquier)
-            html = html +  ' <p><a href="raz">Réinitialiser</a></p>'
-            html = html +  ' <p><a href="instructions.html">Instructions</a></p>'
+            html = html + ' <p><a href="raz">Réinitialiser</a></p>'
+            html = html + ' <p><a href="instructions.html">Instructions</a></p>'
             html=html+PIED
             self.wfile.write(bytes(html, 'UTF-8'))
 

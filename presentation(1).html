@@ -1,0 +1,257 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Cahier des Charges : JEU D'ECHEC</title>
+    <link rel="stylesheet" type="text/css" media="screen, projection, print"
+     href="slidy.css" />
+    <link rel="stylesheet" type="text/css" media="screen, projection, print"
+     href="style.css" />
+    <script src="showdown.js"></script>
+    <script src="slidy.js"></script>
+    
+</head>
+<body>
+<script type=text/markdown>
+<!--
+
+
+
+Projet echecs
+=======================
+<img src="http://img.over-blog.com/450x300/3/84/16/38/associations-culturelles/ludotheque-nay/echecs-212.jpg" alt="some_text">
+ 
+ Equipe: GERARD Antoine ; CHEBANI Nadjimi
+ 
+--------------------------------------------------
+Projet:
+ 
+Nous souhaitons faire un jeu d’echecs qui sera disponible en ligne sur page html.
+les deux joueur ne joueront pas simultanément .
+lorsqu’un joueur  effectue un coup , il sera envoyé a l’autre joueur comme un message comprenant le coup .
+Par conséquent, ils n’auront pas à se connecter en continu pendant toute la partie.
+Ce processus de jeu est dite asynchrone , en opposition au mode synchrone.
+
+ 
+--------------------------------------------------
+ 
+ Le travail est divisé en deux :
+ 
+Une partie programmation sous Python pour créer le jeu en lui-même.
+
+Une partie traduction des données de python en html.
+
+Nous utiliserons donc Python, Notepad ++ et Github pour réaliser notre projet.
+
+--------------------------------------------------
+
+Python : codage du jeu. 
+
+Notepad ++ : Programme spécialement conçu pour l'édition de code source.
+
+Github : Support pour suivre l'avancé du projet et pour partager le travail accomplit entre binome.
+
+--------------------------------------------------
+Je me suis occupé de la modélisation de l'echiquier sous forme de tableau html.
+
+    <TABLE BORDER="1">
+      <CAPTION> Echec </CAPTION>
+      <TR>
+     <TH> Titre A1 </TH>
+     <TD> Titre A2 </TD>
+     <TD> Titre A3 </TD>
+     <TD> Titre A4 </TD>
+       </TR>
+      <TR>
+     <TH> Titre B1 </TH>
+     <TD> Valeur B2 </TD>
+     <TD> Valeur B3 </TD>
+     <TD> Valeur B4 </TD>
+      </TR>
+    </TABLE>
+
+<TABLE BORDER="1">
+  <CAPTION> Echiquier </CAPTION>
+  <TR>
+ <TH> Titre A1 </TH>
+ <TD> Titre A2 </TD>
+ <TD> Titre A3 </TD>
+ <TD>
+ Titre A4 </TD>
+   </TR>
+  <TR>
+ <TH> Titre B1 </TH>
+ <TD> Valeur B2 </TD>
+ <TD> Valeur B3 </TD>
+ <TD> Valeur B4 </TD>
+  </TR>
+</TABLE>
+
+--------------------------------------------------
+Je me suis chargé de la fonction to_html (Echequier) et class test handler qui est le nom que l’on donne à notre modèle de
+serveur de partie d’échecs.
+
+La fonction to_html(Echiquier) prend la structure de données de mon camarade pour les transformer en code html ( elle traduit).
+
+    to_html(echiquier):
+        html = '''<TABLE BORDER="9">
+    <CAPTION> Echiquier </CAPTION>'''
+        for i in range(8):
+            html = html + "<TR>\n"
+            for j in range(8):
+                piece = echiquier[i][j]
+                html = html + "<TD>" + piece + "</TD>\n"
+            html = html + "</TR>\n"
+        html = html + '''
+    </TABLE> '''
+        return html
+
+
+
+Cette fonction est une double boucle car dans chaque ligne elle parcourt 8 colonnes.
+
+--------------------------------------------------
+
+
+Class test handler : lorsqu'on fait une requête au navigateur , il y a trois possibilités.
+
+
+-le navigateur nous envoie la feuille de style.
+
+       TestHandler(http.server.BaseHTTPRequestHandler):
+            def do_GET(self):
+                if self.path == '/style.css':
+                    self.send_response(200)
+                    self.send_header("Content-type", "text/css")
+                    self.end_headers()
+                    file = open("style.css", "r")
+                    style = file.read()
+                    self.wfile.write(bytes(style, 'UTF-8'))
+				
+--------------------------------------------------
+-le navigateur nous renvoi à la page d'instructions.
+
+    elif self.path == '/instructions.html':
+                    self.send_response(200)
+                    self.send_header("Content-type", "text/html")
+                    self.end_headers()
+                    file = open("instructions.html", "r")
+                    html = ENTETE
+                    instructions = file.read()
+                    html=html+instructions
+                    html=html+PIED
+                    self.wfile.write(bytes(html, 'UTF-8'))
+     
+				
+--------------------------------------------------
+-Sinon on va pouvoir réinitialiser l'echiquier.
+
+    else:
+                self.send_response(200)
+                self.send_header("Content-type", "text/html")
+                self.end_headers()
+                if self.path == '/raz':
+                    init_echiquier()
+                # Écriture du contenu de la réponse.
+                html = ENTETE
+                html = html + FORMULAIRE
+				
+C’est comme cela qu'on définit le comportement de
+notre serveu.
+				
+Par ailleurs, je crée un lien qui permet de réinisialiser la partie , ainsi qu'un lien qui permet d'accéder une page avec les instructions.
+
+--------------------------------------------------
+
+Les améliorations possibles pour notre jeu : 
+
+-Mettre de couleurs (gris et blanc) comme un vrai echiquier.
+
+-Créer une fonction qui permet de contrôler les mouvements des pièces.
+
+-Mettre le jeu en ligne afin que les deux joueurs puissent faire une partie.
+
+-Faire une fonction qui permet de répetorier les coûts de chaque joueurs.
+
+-Modéliser les pièces par des formes.
+
+-Il y aura une page accueil et un lien "" nouvelle partie"" ,
+il faudra cliquer sur ce lien pour pouvoir jouer.
+
+--------------------------------------------------
+
+<TABLE BORDER="1">
+<CAPTION> Tableau des répartions des tâches </CAPTION>
+<TR>
+<TH> Planing </TH>
+<TH> GERARD Antoine </TH>
+<TH> CHEBANI Nadjimi </TH>
+</TR>
+<TR>
+<TH> Semaine 1 </TH>
+<TH> Définir notre projet. </TH>
+<TH> Définir notre projet. </TH>
+</TR>
+<TR>
+<TH> Semaine 2 </TH>
+<TD> Ecrire le cahier des charges
++ chercher des informations utiles pour notre projet sur le web. </TD>
+<TD> Ecrire le cahier des charges
++ chercher des informations utiles pour notre projet sur le web. </TD>
+</TR>
+<TR>
+<TH> Semaine 3 </TH>
+<TD> Codage sur Python :
+création de l'échiquier avec la position des différentes pièces du jeu. </TD>
+ <TD>Cahier des charges sur Quickslyde + Codage sur Notepad++ :
+ création du tableau pour mettre en forme l'échiquier sur une page html. </TD>
+</TR>
+<TR>
+<TH> Semaine 4 </TH>
+<TD> Codage sur Python : création de la fonction "déplacer". </TD>
+<TD> Codage sur Notepad :
+création de liens pour réinitialiser la partie et pour aller sur une page d'instructions. </TD>
+  </TR>
+  <TR>
+ <TH> Semaine 5 </TH>
+ <TD> Codage sur Python : création d'un formulaire pour pouvoir dire quelles pièces doivent bouger. </TD>
+<TD> Travail sur CSS : travail sur la stylisation de l'échiquier. </TD>
+  </TR>
+  <TR>
+ <TH> Semaine 6 </TH>
+ <TD> Instructions: contenu de la page. </TD>
+<TD> Instructions: mécanisme pour le lien. </TD>
+  </TR>
+  <TR>
+ <TH> Semaine 7 </TH>
+ <TD> Rédaction des projets papiers et des diapositives. </TD>
+ <TD> Rédaction des projets papiers et des diapositives. </TD>
+  </TR>
+ </TABLE>
+
+--------------------------------------------------
+
+<center><img src="http://i253.photobucket.com/albums/hh53/cbjtaylor94/question_mark.jpg" alt="some_text"></center>
+
+
+<B><center>Questions?</center></B>
+
+
+-->
+</script>
+<script>
+var scripts = document.getElementsByTagName('script');
+for (var i = 0; i < scripts.length; i++){
+    var script = scripts[i];
+    if (script.type != 'text/markdown') continue;
+    var md = script.innerHTML.replace(/^\s<!--*/, '')
+        .replace(/-->\s*$/, '');
+    var markup = new Showdown.converter().makeHtml(md);
+    var slides = markup.split('<hr />');
+    for (var j = 0; j < slides.length; j++)
+        document.write('<div class=slide>' + slides[j] + '</div>');
+}
+w3c_slidy.add_listener(document.body, "touchend", w3c_slidy.mouse_button_click);
+</script>
+</body>
+</html>
